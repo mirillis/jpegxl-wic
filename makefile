@@ -29,24 +29,12 @@ CFLAGS= $(INCARG) /std:c++14 /EHsc /MT /permissive- /W0 /Gm /Zi /O2 /Fo"$(TEMPDI
 LDFLAGS32=
 LDFLAGS64= $(LIBARG64) /LIBPATH:$(LIBDIR64) /DEF:"jxlwic.def" /MACHINE:X64
 
-dll64: setup verfile
+dll64: setup
 	$(CC) /c $(SRCARG) $(CFLAGS)
 	link.exe /dll /out:$(RELEASEBINDIR64)/$(TITLE).dll $(TEMPDIR)/*.obj $(LDFLAGS64)
 	echo F | xcopy /E /Y /F $(BINDIR64)\* $(RELEASEBINDIR64)
 	del /Q $(RELEASEBINDIR64)\*.exp
 	del /Q $(RELEASEBINDIR64)\*.lib
-
-verfile:
-	@echo build_date: > $(VERFILE)
-	date /T >> $(VERFILE)
-	@echo build_host: >> $(VERFILE)
-	hostname >> $(VERFILE)
-	@echo author: >> $(VERFILE)
-	echo %username% >> $(VERFILE)
-	@echo revision: >> $(VERFILE)
-	@- git rev-parse --verify HEAD >> $(VERFILE)
-	@echo url: >> $(VERFILE)
-	@- git config --get remote.origin.url  >> $(VERFILE)
 
 setup:
 	- if NOT EXIST "$(RELEASEDIR)" mkdir "$(RELEASEDIR)"
@@ -58,9 +46,11 @@ setup:
 	- if NOT EXIST "$(TEMPDIR)" mkdir "$(TEMPDIR)"
 
 clean: cleantmp
-	rm -r -f $(RELEASEDIR)
+	del /Q $(RELEASEDIR)
+	rd /S /Q $(RELEASEDIR) || rem
 
 cleantmp:
-	rm -r -f $(TEMPDIR)
-	rm -r -f *.idb
-	rm -f -f *.pdb
+	del /Q $(TEMPDIR)
+	rd /Q $(TEMPDIR) || rem
+	del /Q *.idb
+	del /Q *.pdb

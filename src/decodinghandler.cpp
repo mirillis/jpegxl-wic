@@ -195,7 +195,7 @@ int DecodingHandler::decodeMetadata() {
 //============================================================================
 int DecodingHandler::recreateBufferInput(size_t size) {
     if(size != size_in) {
-        if(!buf_in) {
+        if(buf_in) {
             free(buf_in);
             buf_in= nullptr;
         }
@@ -213,7 +213,7 @@ int DecodingHandler::recreateBufferInput(size_t size) {
 //============================================================================
 int DecodingHandler::recreateBufferOutput(size_t size) {
     if(size != size_out) {
-        if(!buf_out) {
+        if(buf_out) {
             free(buf_out);
             buf_out= nullptr;
         }

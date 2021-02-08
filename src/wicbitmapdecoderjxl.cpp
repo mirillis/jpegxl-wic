@@ -135,7 +135,6 @@ HRESULT WICBitmapDecoderJXL::GetContainerFormat(GUID* pguidContainerFormat) {
 HRESULT WICBitmapDecoderJXL::GetDecoderInfo(
 IWICBitmapDecoderInfo** ppIDecoderInfo) {
     HRESULT hres= S_OK;
-    IWICImagingFactory* wic_fact= nullptr;
     {
         MutexLocker locker(&criticalsection);
         if(!this->wic_fact) {
@@ -146,15 +145,18 @@ IWICBitmapDecoderInfo** ppIDecoderInfo) {
                 return hres;
             }
         }
-        IWICComponentInfo* wic_cinfo= nullptr;
-        hres= wic_fact->CreateComponentInfo(CLSID_JXLDecoder, &wic_cinfo);
-        if(FAILED(hres)) return hres;
-        hres= wic_cinfo->QueryInterface(IID_IWICBitmapDecoderInfo,
-            reinterpret_cast<void**>(ppIDecoderInfo));
-        if(FAILED(hres)) return hres;
-        return S_OK;
     }
-    return hres;
+    IWICComponentInfo* wic_cinfo= nullptr;
+    hres= this->wic_fact->CreateComponentInfo(CLSID_JXLDecoder, &wic_cinfo);
+    if(FAILED(hres)) return hres;
+    hres= wic_cinfo->QueryInterface(IID_IWICBitmapDecoderInfo,
+        reinterpret_cast<void**>(ppIDecoderInfo));
+    if(FAILED(hres)) {
+        wic_cinfo->Release();
+        return hres;
+    }
+    wic_cinfo->Release();
+    return S_OK;
 }
 
 

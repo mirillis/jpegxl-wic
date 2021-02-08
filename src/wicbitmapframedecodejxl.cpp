@@ -46,26 +46,21 @@ WICBitmapFrameDecodeJXL::~WICBitmapFrameDecodeJXL() {
 //============================================================================
 HRESULT WICBitmapFrameDecodeJXL::Initialize(IStream* pIStream, UINT index)  {
     HRESULT hres= S_OK;
-    //CREATES COLOR CONTEXT
     wic_cc= new WICColorContextJXL();
-    //CALCULATE STREAM SIZE
     STATSTG stat = { 0 };
     hres = pIStream->Stat(&stat, STATFLAG_NONAME);
     if(FAILED(hres)) {
         return E_OUTOFMEMORY;
     }
     UINT64 size= stat.cbSize.QuadPart;
-    //INITIALIZE DECODER
     if(dechandler.init()) return E_UNEXPECTED;
     if(dechandler.recreateBufferInput(size)) return E_UNEXPECTED;
-    //COPY STREAM TO BUFFER INPUT
     ULONG read= 0;
     hres= pIStream->Read(
         dechandler.getBufferInput(), dechandler.getBufferInputSize(), &read);
     if(FAILED(hres)) {
         return E_OUTOFMEMORY;
     }
-    //DECODE
     if(dechandler.decode()) return E_UNEXPECTED;
     if(setHDRBuffer()) return E_UNEXPECTED;
     return hres;
@@ -151,9 +146,11 @@ WICPixelFormatGUID* pPixelFormat) {
     if(dechandler.getOutputMetadata().size_chan == 2) {
         *pPixelFormat= GUID_WICPixelFormat32bppR10G10B10A2HDR10;
     } else 
-    if(dechandler.getOutputMetadata().size_chan == 2) {
+    //UNUSED
+    /*if(dechandler.getOutputMetadata().size_chan == 2) {
         *pPixelFormat = GUID_WICPixelFormat64bppRGBA;
-    } else {
+    } else*/
+    {
         return E_UNEXPECTED;
     }
     return S_OK;
