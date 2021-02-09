@@ -141,7 +141,7 @@ HRESULT WICBitmapFrameDecodeJXL::GetPixelFormat(
 WICPixelFormatGUID* pPixelFormat) {
     if(pPixelFormat == nullptr) return E_INVALIDARG;
     if(dechandler.getOutputMetadata().size_chan == 1) {
-        *pPixelFormat= GUID_WICPixelFormat32bppRGBA;
+        *pPixelFormat= GUID_WICPixelFormat24bppRGB;
     } else
     if(dechandler.getOutputMetadata().size_chan == 2) {
         *pPixelFormat= GUID_WICPixelFormat32bppR10G10B10A2HDR10;

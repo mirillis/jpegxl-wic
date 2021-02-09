@@ -58,10 +58,10 @@ Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: 
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: string; ValueName: "MimeTypes"; ValueData: "image/jxl";
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: dword;  ValueName: "SupportAnimation";  ValueData: "0";
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: dword;  ValueName: "SupportChromaKey";  ValueData: "0";
-Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: dword;  ValueName: "SupportLossless";   ValueData: "1";
+Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: dword;  ValueName: "SupportLossless";   ValueData: "0";
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}"; ValueType: dword;  ValueName: "SupportMultiframe"; ValueData: "0";
 
-Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}\Formats\{{F5C7AD2D-6A8D-43DD-A7A8-A29935261AE9}";
+Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}\Formats\{{6FDDC324-4E03-4BFE-B185-3D77768DC90D}";
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}\Formats\{{9C215C5D-1ACC-4F0E-A4BC-70FB3AE8FD28}";
 
 Root: HKCR; Subkey: "CLSID\{{0AF8C503-8682-4FBD-AA76-22F7E5567A4F}\InprocServer32";

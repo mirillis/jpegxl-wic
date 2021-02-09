@@ -62,7 +62,6 @@ public:
 
 private:
     int getOutputMetadata(size_t size_chan, OutputMetadata* outmd);
-    static const size_t NUM_CHAN_OUT;
     OutputMetadata outmd;
     JxlBasicInfo jxl_info;
     JxlDecoder* jxl_dec;

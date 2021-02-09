@@ -32,7 +32,6 @@ namespace mrls { namespace jxlcodec { namespace wic {
 //                            DECODING HANDLER
 //==[ constructor ]===========================================================
 //============================================================================
-const size_t DecodingHandler::NUM_CHAN_OUT= 4;
 DecodingHandler::DecodingHandler() : size_in(0), size_out(0), flag_init(false),
 buf_in(nullptr), buf_out(nullptr), jxl_dec(nullptr), jxl_runner(nullptr) {
     memset(&jxl_info, 0, sizeof(JxlBasicInfo));
@@ -163,7 +162,7 @@ int DecodingHandler::decodeMetadata() {
     memset(&jxl_info, 0, sizeof(JxlBasicInfo));
     JxlPixelFormat jxl_pixfmt;
     memset(&jxl_pixfmt, 0, sizeof(JxlPixelFormat));
-    jxl_pixfmt.num_channels= NUM_CHAN_OUT;
+    jxl_pixfmt.num_channels= 4;
     jxl_pixfmt.data_type= JXL_TYPE_FLOAT;
     jxl_pixfmt.endianness= JXL_NATIVE_ENDIAN;
     jxl_pixfmt.align= 0;
@@ -236,14 +235,14 @@ OutputMetadata* outmd) {
         case 1: {
             outmd->jxl_datatype= JXL_TYPE_UINT8;
             outmd->size_chan= 1;
-            outmd->num_chan= NUM_CHAN_OUT;
+            outmd->num_chan= 3;
             outmd->size_pix= outmd->size_chan*outmd->num_chan;
             return 0;
         }
         case 2: {
             outmd->jxl_datatype= JXL_TYPE_UINT16;
             outmd->size_chan= 2;
-            outmd->num_chan= NUM_CHAN_OUT;
+            outmd->num_chan= 4;
             outmd->size_pix= outmd->size_chan*outmd->num_chan;
             return 0;
         }

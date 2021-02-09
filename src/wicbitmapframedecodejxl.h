@@ -41,7 +41,6 @@ public:
     WICBitmapFrameDecodeJXL();
     virtual ~WICBitmapFrameDecodeJXL();
     HRESULT Initialize(IStream* pIStream, UINT index);
-    HRESULT SetBufferOutput(void);
 
     //IUnknown
     ULONG STDMETHODCALLTYPE AddRef();
